@@ -23,3 +23,16 @@ class CompletionResult:
 
     def __post_init__(self):
         object.__setattr__(self, "metadata", MappingProxyType(dict(self.metadata)))
+
+
+@dataclass
+class _Factorization:
+    """Internal return value shared by the bundled algorithms."""
+
+    reconstruction: np.ndarray
+    left_factor: np.ndarray
+    right_factor: np.ndarray
+    n_iter: int
+    converged: bool
+    objective: float
+    metadata: dict[str, Any] = field(default_factory=dict)

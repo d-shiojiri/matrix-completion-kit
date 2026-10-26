@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from ..backend import BackendResult
+from ..result import _Factorization
 from .common import converged, mean_fill, nndsvd
 
 
@@ -45,8 +45,8 @@ def _fit_multiplicative(matrix, observed, rank, max_iter, tolerance, random_stat
         if converged(previous, objective, tolerance):
             did_converge = True; break
         previous = objective
-    return BackendResult(reconstruction, left, right, iteration, did_converge,
-                         objective, {"divergence": divergence})
+    return _Factorization(reconstruction, left, right, iteration, did_converge,
+                          objective, {"divergence": divergence})
 
 
 def fit_gamma_poisson_nmf(matrix, observed, rank, max_iter, tolerance,
@@ -69,9 +69,9 @@ def fit_gamma_poisson_nmf(matrix, observed, rank, max_iter, tolerance,
         if converged(previous, objective, tolerance):
             did_converge = True; break
         previous = objective
-    return BackendResult(reconstruction, left, right, iteration, did_converge,
-                         objective, {"divergence": "kl", "gamma_shape": gamma_shape,
-                                     "gamma_rate": gamma_rate})
+    return _Factorization(reconstruction, left, right, iteration, did_converge,
+                          objective, {"divergence": "kl", "gamma_shape": gamma_shape,
+                                      "gamma_rate": gamma_rate})
 
 
 def _nonnegative_data(matrix, observed):

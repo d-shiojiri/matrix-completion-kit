@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from ..backend import BackendResult
+from ..result import _Factorization
 from .common import converged, mean_fill
 
 
@@ -40,5 +40,5 @@ def fit_gaussian_als(matrix, observed, rank, max_iter, tolerance, random_state,
         if converged(previous, objective, tolerance):
             did_converge = True; break
         previous = objective
-    return BackendResult(reconstruction, left, right, iteration, did_converge,
-                         objective, {"row_mean": row_mean})
+    return _Factorization(reconstruction, left, right, iteration, did_converge,
+                          objective, {"row_mean": row_mean})

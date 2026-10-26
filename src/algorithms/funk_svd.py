@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from ..backend import BackendResult
+from ..result import _Factorization
 from .common import converged
 
 
@@ -40,7 +40,7 @@ def fit_funk_svd(matrix, observed, rank, max_iter, tolerance, random_state,
         previous = objective
     reconstruction = (global_mean + row_bias[:, None] + column_bias[None, :]
                       + left @ right)
-    return BackendResult(reconstruction, left, right, iteration, did_converge,
-                         objective, {"global_mean": global_mean,
+    return _Factorization(reconstruction, left, right, iteration, did_converge,
+                          objective, {"global_mean": global_mean,
                                      "row_bias": row_bias,
                                      "column_bias": column_bias})
